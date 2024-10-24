@@ -1,16 +1,19 @@
 import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import { Form, type DocumentHead } from "@builder.io/qwik-city";
+import { useSignIn } from "./plugin@auth";
 
 export default component$(() => {
+  const signIn = useSignIn();
   return (
-    <>
-      <h1>Hi 👋</h1>
-      <div>
-        Can't wait to see what you build with qwik!
-        <br />
-        Happy coding.
-      </div>
-    </>
+    <Form action={signIn}>
+      <input type="hidden" name="providerId" value="github" />
+      <input
+        type="hidden"
+        name="options.redirectTo"
+        value="/"
+      />
+      <button>Sign In</button>
+    </Form>
   );
 });
 
